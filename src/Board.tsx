@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Square from './Square';
 
 const Board: React.FC = () => {
+  // let squares: ('X' | 'O' | '')[] = Array(9).fill('');
+  const [squares, setSquares] = useState(Array(9).fill(''))
+
   const renderSquare = (number: number) => {
-    return <Square value={number} />
+    return <Square circleAndCross={squares[number]} onClick={() => handleClick(number)} />
   }
-  
-  const status: string = 'Next player: X';
+
+  const handleClick = (i: number) => {
+    squares[i] = 'X';
+    setSquares(squares);
+  }
+
+  let status: string = 'Next player: X';
 
   return (
     <div>

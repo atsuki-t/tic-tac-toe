@@ -1,13 +1,17 @@
 import React from 'react';
 
 type Props = {
-  value: number
+  circleAndCross: 'X' | 'O' | '';
+  onClick: any;
 }
 
 const Square: React.FC<Props> = (props) => {
   return (
-    <button className="square">
-      {props.value}
+    <button
+      className="square"
+      onClick={() => props.onClick()}
+    >
+      {props.circleAndCross}
     </button>
   );
 }
