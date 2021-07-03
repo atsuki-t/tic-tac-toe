@@ -6,7 +6,7 @@ type Props = {
 
 const Square: React.FC<Props> = (props) => {
   return (
-    <button>
+    <button className="square">
       {props.value}
     </button>
   );
