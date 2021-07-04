@@ -10,14 +10,15 @@ const Board: React.FC = () => {
   }
 
   const handleClick = (i: number) => {
-    if (calculateWinner(squares) == null) {
-      const newSquares = squares.slice();
-      newSquares[i] = xIsNext ? 'X' : 'O';
-      setxIsNext(!xIsNext);
-      setSquares(newSquares);
+    const newSquares = squares.slice();
+    if (squares[i] || calculateWinner(squares)) {
+      return;
     }
+    newSquares[i] = xIsNext ? '×' : '○';
+    setxIsNext(!xIsNext);
+    setSquares(newSquares);
   }
-  
+
   const calculateWinner = (squares: string[]) => {
     const lines = [
       [0, 1, 2],
@@ -37,8 +38,26 @@ const Board: React.FC = () => {
     }
     return null;
   }
-  
-  const status: string = calculateWinner(squares) ? `Winner: ${calculateWinner(squares)}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
+
+  const reset = () => {
+    setSquares(Array(9).fill(''));
+    setxIsNext(false);
+  }
+
+  const statusFunction = () => {
+    if (calculateWinner(squares)) {
+      return `勝者: ${calculateWinner(squares)}`
+    } else {
+      if (squares.some(element => element === '')) {
+        return `次のプレイヤー: ${xIsNext ? '×' : '○'}`;
+        
+      } else {
+        return '引き分け';
+      }
+    }
+  }
+
+  const status: string = statusFunction()
 
   return (
     <div>
@@ -58,6 +77,7 @@ const Board: React.FC = () => {
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
+      <button onClick={reset}>リセット</button>
     </div>
   );
 }
