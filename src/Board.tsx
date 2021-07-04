@@ -6,7 +6,7 @@ const Board: React.FC = () => {
   const [xIsNext, setxIsNext] = useState(false);
 
   const renderSquare = (number: number) => {
-    return <Square circleAndCross={squares[number]} onClick={() => handleClick(number)} />
+    return <Square circleAndCross={squares[number]} number={number} onClick={() => handleClick(number)} />
   }
 
   const handleClick = (i: number) => {
@@ -62,22 +62,28 @@ const Board: React.FC = () => {
   return (
     <div>
       <div className="status">{status}</div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
+      <div className="d-flex justify-content-center">
+        <div>
+          <div className="board-row">
+            {renderSquare(0)}
+            {renderSquare(1)}
+            {renderSquare(2)}
+          </div>
+          <div className="board-row">
+            {renderSquare(3)}
+            {renderSquare(4)}
+            {renderSquare(5)}
+          </div>
+          <div className="board-row">
+            {renderSquare(6)}
+            {renderSquare(7)}
+            {renderSquare(8)}
+          </div>
+        </div>
       </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
+      <div className="d-flex justify-content-center mt-5">
+        <button onClick={reset} className="fs-2 bg-white">ゲームをリセットする</button>
       </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-      <button onClick={reset}>リセット</button>
     </div>
   );
 }
